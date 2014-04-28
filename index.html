@@ -47,7 +47,7 @@
 		<div class="container">
 			<h3>Calendar settings</h3>
 			<p>Select your address and desired calendar properties. This information is needed to find your zone. Garbage collection calendars depend on the zone in which you live. Under no circumstance will this information be stored or shared with third parties.</p>
-			<form method="get" action="create_ical.js" role="form">
+			<form method="get" action="create_ical.html" role="form">
 				<div class="form-group">
 					<div data-bind="visible: !dataLoaded()">
 						<img src="img/ajax-loader.gif"/>
@@ -72,13 +72,15 @@
 						optionsText: 'label',
 						value: selectedStreetDivision,
 						optionsCaption: 'Choose street part...',
-						enable: isStreetDivided" class="form-control"></select> 
+						enable: isStreetDivided
+						visible: isStreetDivided" class="form-control"></select> 
 				</div>
 				<div class="form-group" data-bind="visible: selectedSector()">
 					<p>You are in sector: <span data-bind="text: selectedSector()"> </span></p>
 				</div>
+				<input data-bind="value: selectedSector()" type="hidden" name="sector"/>
+				<button type="submit" class="btn btn-default">Create iCal &raquo;</button>
 			</form>
-			<p><a class="btn btn-default" href="#" role="button">Create iCal &raquo;</a></p>
 			<hr>
 
 			<footer>
@@ -87,96 +89,96 @@
 		</div> <!-- /container -->
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-			<script src="js/vendor/bootstrap.min.js"></script>
-			<script type='text/javascript' src='js/vendor/knockout-3.1.0.js'></script>
-			<script src="js/main.js"></script>
-			<script language="javascript">
-				var SelectZoneViewModel = function() {
-					this.allCommunities = ko.observableArray([]);
-					this.dataLoaded = ko.observable(false);
-					this.selectedCommunity = ko.observable();
+		<script>window.jQuery || document.write('<scr'+'ipt src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+		<script src="js/vendor/bootstrap.min.js"></script>
+		<script type='text/javascript' src='js/vendor/knockout-3.1.0.js'></script>
+		<script src="js/main.js"></script>
+		<script language="javascript">
+			var SelectZoneViewModel = function() {
+				this.allCommunities = ko.observableArray([]);
+				this.dataLoaded = ko.observable(false);
+				this.selectedCommunity = ko.observable();
 
-					this.streetsLoaded = ko.observable(true);
-					this.selectedStreet = ko.observable();
-					this.selectedStreetDivision = ko.observable();
+				this.streetsLoaded = ko.observable(true);
+				this.selectedStreet = ko.observable();
+				this.selectedStreetDivision = ko.observable();
 
-					this.communityLookupMap = {};
-					this.loadData = function(data) {
-						for(var i = 0; i < data.length; ++i) {
-							if(!(data[i].gemeente in this.communityLookupMap)) {
-								var newCommunity = { name: data[i].gemeente, streetLookupMap: {}, streets: [] };
-								this.allCommunities.push(newCommunity);
-								this.communityLookupMap[data[i].gemeente] = newCommunity;
-							}
-							var communityData = this.communityLookupMap[data[i].gemeente];
-							if(!(data[i].straatnaam in communityData.streetLookupMap)) {
-								// I need an array of items to be shown in the dropdown
-								// + I need a map to be able to quickly find whether a street is already added
-								var newStreet = { name: data[i].straatnaam, divisions: [] };
-								communityData.streets.push(newStreet);
-								communityData.streetLookupMap[data[i].straatnaam] = newStreet;
-							}
-							communityData.streetLookupMap[data[i].straatnaam].divisions.push(data[i]);
+				this.loadData = function(data) {
+					var communityLookupMap = {};
+					for(var i = 0; i < data.length; ++i) {
+						if(!(data[i].gemeente in communityLookupMap)) {
+							var newCommunity = { name: data[i].gemeente, streets: [] };
+							this.allCommunities.push(newCommunity);
+							// I need an array of items to be shown in the dropdown
+							// + I need a map to be able to quickly find whether a street is already added
+							communityLookupMap[data[i].gemeente] = { community: newCommunity, streetLookupMap: {} };
 						}
-						this.allCommunities.sort(function(a, b) { return a.name.localeCompare(b.name); } );
-						this.dataLoaded(true);
-					};
-
-					this.communityStreets = ko.computed(function() {
-						if(this.selectedCommunity()) {
-							return this.selectedCommunity().streets;
-						} else {
-							return [];
+						var communityWrapper = communityLookupMap[data[i].gemeente];
+						if(!(data[i].straatnaam in communityWrapper.streetLookupMap)) {
+							var newStreet = { name: data[i].straatnaam, divisions: [] };
+							communityWrapper.community.streets.push(newStreet);
+							communityWrapper.streetLookupMap[data[i].straatnaam] = newStreet;
 						}
-					}, this);
-
-					this.isStreetDivided = ko.computed(function() {
-						return this.selectedCommunity() && this.selectedStreet() && this.selectedStreet().divisions.length > 1;
-					}, this);
-					
-					this.streetDivisions = ko.computed(function() {
-						if(this.isStreetDivided()) {
-							var partsObjects = this.selectedStreet().divisions;
-							var partsTexts = [];
-							for(var i=0; i<partsObjects.length; ++i) {
-								pushText(partsTexts, partsObjects[i], "even van ", "even tot", " (even)");
-								pushText(partsTexts, partsObjects[i], "oneven van ", "oneven tot", " (odd)");
-							}
-							return partsTexts;
-						} else {
-							return [];
-						}
-					}, this);
-
-					this.selectedSector = ko.computed(function() {
-						if(this.selectedCommunity() && this.selectedStreet()) {
-							if(this.isStreetDivided()) {
-								if(this.selectedStreetDivision()) {
-									return this.selectedStreetDivision().value;
-								} else {
-									return null;
-								}
-							} else {
-								return this.selectedStreet().divisions[0].sector;
-							}
-						} else {
-							return null;
-						}
-					}, this);
+						communityWrapper.streetLookupMap[data[i].straatnaam].divisions.push(data[i]);
+					}
+					this.allCommunities.sort(function(a, b) { return a.name.localeCompare(b.name); } );
+					this.dataLoaded(true);
 				};
 
-function pushText(target, obj, startField, stopField, postfix) {
-	if(obj[startField] != "" && obj[startField] != "-1") {
-		target.push({ label: obj[startField] + "-" + obj[stopField] + postfix, value: obj['sector']});
-	}
-}
+				this.communityStreets = ko.computed(function() {
+					if(this.selectedCommunity()) {
+						return this.selectedCommunity().streets;
+					} else {
+						return [];
+					}
+				}, this);
 
-				var model = new SelectZoneViewModel();
-				ko.applyBindings(model);
-				jQuery.getJSON("http://datatank.gent.be/MilieuEnNatuur/IVAGO-Stratenlijst.json", function(data){
-					model.loadData(data["IVAGO-Stratenlijst"]);
-				});
-			</script>
-		</body>
-	</html>
+				this.isStreetDivided = ko.computed(function() {
+					return this.selectedCommunity() && this.selectedStreet() && this.selectedStreet().divisions.length > 1;
+				}, this);
+
+				this.streetDivisions = ko.computed(function() {
+					if(this.isStreetDivided()) {
+						var partsObjects = this.selectedStreet().divisions;
+						var partsTexts = [];
+						for(var i=0; i<partsObjects.length; ++i) {
+							pushText(partsTexts, partsObjects[i], "even van ", "even tot", " (even)");
+							pushText(partsTexts, partsObjects[i], "oneven van ", "oneven tot", " (odd)");
+						}
+						return partsTexts;
+					} else {
+						return [];
+					}
+				}, this);
+
+				this.selectedSector = ko.computed(function() {
+					if(this.selectedCommunity() && this.selectedStreet()) {
+						if(this.isStreetDivided()) {
+							if(this.selectedStreetDivision()) {
+								return this.selectedStreetDivision().value;
+							} else {
+								return null;
+							}
+						} else {
+							return this.selectedStreet().divisions[0].sector;
+						}
+					} else {
+						return null;
+					}
+				}, this);
+			};
+
+			function pushText(target, obj, startField, stopField, postfix) {
+				if(obj[startField] != "" && obj[startField] != "-1") {
+					target.push({ label: obj[startField] + "-" + obj[stopField] + postfix, value: obj['sector']});
+				}
+			}
+
+			var model = new SelectZoneViewModel();
+			ko.applyBindings(model);
+			jQuery.getJSON("http://datatank.gent.be/MilieuEnNatuur/IVAGO-Stratenlijst.json", function(data){
+				model.loadData(data["IVAGO-Stratenlijst"]);
+			});
+		</script>
+	</body>
+</html>
