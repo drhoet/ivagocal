@@ -33,17 +33,14 @@
 				}
 			}
 
-			function createICal() {
+			function createICal(model) {
 				var generator = new ICalGenerator();
-				jQuery.getJSON("IvagoOphaalkalender2014.json", function(data) {
+				var sector = model.selectedSector();
+				jQuery.getJSON("http://datatank.gent.be/MilieuEnNatuur/IvagoOphaalkalender2014.json", function(data) {
 					generator.loadData(data["IvagoOphaalkalender2014"]);
-					var sector = getURLParameter('sector');
-					var a = document.createElement('a');
-					a.setAttribute('href', 'data:application/octet-stream;charset=utf-8;base64,' + window.btoa(generator.generate(sector)));
-					a.setAttribute('download', 'iCal-' + sector + '.ics');
-					a.click();
 					$('#downloadLink').attr('href', 'data:application/octet-stream;charset=utf-8;base64,' + window.btoa(generator.generate(sector)));
 					$('#downloadLink').attr('download', 'iCal-' + sector + '.ics');
+					$('#downloadICalModal').modal();
 				});
 			}
 		</script>
@@ -105,15 +102,38 @@
 					<p>You are in sector: <span data-bind="text: selectedSector()"> </span></p>
 				</div>
 				<input data-bind="value: selectedSector()" type="hidden" name="sector"/>
-				<button type="button" class="btn btn-default" data-bind="enable: selectedSector(), click: createICal.bind($data.selectedSector())">Create iCal &raquo;</button>
+				<button type="button" class="btn btn-default" data-bind="enable: selectedSector(), click: createICal">Create iCal &raquo;</button>
 			</form>
 			<hr>
-			<a id="downloadLink" href="">Download iCal</a>
 
 			<footer>
 				<p>&copy; drhoet 2014</p>
 			</footer>
 		</div> <!-- /container -->
+
+		<div class="modal fade" id="downloadICalModal" tabindex="-1" role="dialog" aria-labelledby="downloadICalModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="downloadICalModalLabel">ICal import instructions</h4>
+					</div>
+					<div class="modal-body">
+						<p>Your ICal has been generated and can be downloaded with the link below.</p>
+						<p>To use the file, you probably want to create a new Calendar and import the file there. In Gmail, this is how you would do that:</p>
+						<ul>
+							<li>First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.<img src="img/Gmail_create_calendar.png"/></li>
+							<li>Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.<img src="img/Gmail_import_calendar.png"/></li>
+							<li>If you wish to have a reminder for the events, you can do so by clicking the little arrow next to your newly created calendar and choosing the Reminders and notifications option.</li>
+						</ul>
+						<a id="downloadLink" href="">Download iCal</a>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<scr'+'ipt src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
@@ -125,9 +145,7 @@
 		<script language="javascript">
 			var model = new SelectZoneViewModel();
 			ko.applyBindings(model);
-			jQuery.getJSON(
-				//"http://datatank.gent.be/MilieuEnNatuur/IVAGO-Stratenlijst.json", function(data){
-				"IVAGO-Stratenlijst.json", function(data){
+			jQuery.getJSON("http://datatank.gent.be/MilieuEnNatuur/IVAGO-Stratenlijst.json", function(data){
 				model.loadData(data["IVAGO-Stratenlijst"]);
 			});
 		</script>
