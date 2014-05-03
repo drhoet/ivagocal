@@ -36,11 +36,13 @@
 			function createICal(model) {
 				var generator = new ICalGenerator();
 				var sector = model.selectedSector();
+				$('#downloadICalModal').modal();
 				jQuery.getJSON("http://datatank.gent.be/MilieuEnNatuur/IvagoOphaalkalender2014.json", function(data) {
 					generator.loadData(data["IvagoOphaalkalender2014"]);
 					$('#downloadLink').attr('href', 'data:application/octet-stream;charset=utf-8;base64,' + window.btoa(generator.generate(sector)));
 					$('#downloadLink').attr('download', 'iCal-' + sector + '.ics');
-					$('#downloadICalModal').modal();
+					$('#downloadWaiting').addClass('hidden');
+					$('#downloadLink').removeClass('hidden');
 				});
 			}
 		</script>
@@ -127,14 +129,18 @@ Links from this site to third-party sites do not constitute an endorsement by th
 						<h4 class="modal-title" id="downloadICalModalLabel">ICal import instructions</h4>
 					</div>
 					<div class="modal-body">
-						<p>Your ICal has been generated and can be downloaded with the link below.</p>
+						<p>Your iCal is being generated and will be available for downloaded in an instant through the link below.</p>
 						<p>To use the file, you probably want to create a new Calendar and import the file there. In Gmail, this is how you would do that:</p>
 						<ul>
 							<li>First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.<img src="img/Gmail_create_calendar.png"/></li>
 							<li>Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.<img src="img/Gmail_import_calendar.png"/></li>
 							<li>If you wish to have a reminder for the events, you can do so by clicking the little arrow next to your newly created calendar and choosing the Reminders and notifications option.</li>
 						</ul>
-						<a id="downloadLink" href="">Download iCal</a>
+						<div id="downloadWaiting" class="show">
+							<img src="img/ajax-loader.gif"/>
+							<span>Generating iCal...</span>
+						</div>
+						<a id="downloadLink" class="hidden" href="">Download iCal</a>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
