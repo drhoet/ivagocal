@@ -1,8 +1,9 @@
 define('iCalGenerator', ['moment'], function(moment) {
 
 	var iCalGeneratorType = function() {
-		var self = this;
-
+		var self = this,
+			pub = {};
+		
 		this.createEvent = function(event) {
 			return 'BEGIN:VEVENT\r\n' +
 				'DTSTART;VALUE=DATE:' + moment(event.datum, 'YYYY[-]MM[-]DD').format('YYYYMMDD')+ '\r\n' +
@@ -12,11 +13,11 @@ define('iCalGenerator', ['moment'], function(moment) {
 				'END:VEVENT\r\n';
 		};
 		
-		this.loadData = function(data) {
+		pub.loadData = function(data) {
 			self.data = data;
 		};
 		
-		this.generate = function(sector) {
+		pub.generate = function(sector) {
 			var result = 'BEGIN:VCALENDAR\r\nPRODID:-//drhoet//Ivago Calendar Generator 1.0//EN\r\nVERSION:2.0\r\nX-WR-CALDESC:Ivago Calendar ' + sector + '\r\n';
 			var j = 0;
 			for(var i=0; i<self.data.length; ++i) {
@@ -29,10 +30,7 @@ define('iCalGenerator', ['moment'], function(moment) {
 			return result;
 		};
 
-		return {
-			loadData: self.loadData,
-			generate: self.generate
-		};
+		return pub;
 	};
 	
 	return {
