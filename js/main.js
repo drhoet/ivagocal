@@ -35,7 +35,7 @@
 				var sector = model.selectedSector();
 				$('#downloadICalModal').modal();
 				$.getJSON(baseUrl + 'IvagoOphaalkalender2014.json', function(data) {
-					generator.loadData(data["IvagoOphaalkalender2014"]);
+					generator.loadData(data.IvagoOphaalkalender2014);
 					$('#downloadLink').attr('href', 'data:application/octet-stream;charset=utf-8;base64,' + window.btoa(generator.generate(sector)));
 					$('#downloadLink').attr('download', 'iCal-' + sector + '.ics');
 					$('#downloadWaiting').addClass('hidden');
