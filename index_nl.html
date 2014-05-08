@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Ivago Calendar Creator</title>
+		<meta name="description" content="Genereert iCal voor Ivago data">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<style>
+			body {
+				padding-top: 50px;
+				padding-bottom: 20px;
+      }
+		</style>
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/main.css">
+
+		<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+		<p class="browsehappy">Uw browser is <strong>verouderd</strong>. Bezoek <a gref="http://browsehappy.com/">update uw browser</a> voor een betere gebruikservaring.</p>
+		<![endif]-->
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Common Tools</a>
+				</div>
+				<!--/.navbar-collapse -->
+			</div>
+		</div>
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h1>Ivago Calendar Creator</h1>
+				<p>Op deze pagina kan u een kalendar in iCal formaat aanmaken voor de ophaalrondes van het huisvuil door Ivago in Gent. Het iCal formaat is een bekend formaat dat ondersteund wordt in de meeste grote kalendar-toepassingen, waaronde Google Kalender, Mozilla Thunderbird, Microsoft Outlook, ...</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<h3>Calendar settings</h3>
+			<p>Select your address and desired calendar properties. This information is needed to find your zone. Garbage collection calendars depend on the zone in which you live. Under no circumstance will this information be stored or shared with third parties.</p>
+			<form method="get" role="form">
+				<div class="form-group">
+					<div data-bind="visible: !dataLoaded()">
+						<img src="img/ajax-loader.gif"/>
+						<span>Loading data ...</span>
+					</div>
+				</div>
+				<div class="form-group form-inline">
+					<select data-bind="
+						options: allCommunities,
+						optionsText: 'name',
+						optionsCaption: 'Choose community',
+						value: selectedCommunity,
+						enable: dataLoaded" class="form-control"></select>
+					<select data-bind="
+						options: communityStreets,
+						optionsText: 'name',
+						value: selectedStreet,
+						optionsCaption: 'Choose street...',
+						enable: selectedCommunity" class="form-control"></select> 
+					<select data-bind="
+						options: streetDivisions,
+						optionsText: 'label',
+						value: selectedStreetDivision,
+						optionsCaption: 'Choose street part...',
+						enable: isStreetDivided
+						visible: isStreetDivided" class="form-control"></select> 
+				</div>
+				<div class="form-group" data-bind="visible: selectedSector()">
+					<p>You are in sector: <span data-bind="text: selectedSector()"> </span></p>
+				</div>
+				<input data-bind="value: selectedSector()" type="hidden" name="sector"/>
+				<button id="createICalButton" type="button" class="btn btn-default" data-bind="enable: selectedSector()">Create iCal &raquo;</button>
+			</form>
+			<hr>
+
+			<footer>
+				<p><small>DISCLAIMER: This website is provided as a service to the public and Web site owners.
+
+The author of this website is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information contained within the site is periodically updated, no guarantee is given that the information provided in this web site is correct, complete, and up-to-date.
+
+Although this site may include links providing direct access to other Internet resources, including web sites, the author is not responsible for the accuracy or content of information contained in these sites.
+
+Links from this site to third-party sites do not constitute an endorsement by the author of the parties or their products and services. The appearance on the web site of advertisements and product or service information does not constitute an endorsement by the author, and the author has not investigated the claims made by any advertiser. Product information is based solely on material received from suppliers.</small></p>
+				<p><small>The data used in this application is under license. Please find more information <a href="http://data.gent.be/algemene-licentie">here</a>. Downloading this data in full or retrieving substantial parts of it through this website requires you to follow the license mentioned before.</small></p>
+				<p>&copy; <a href="https://github.com/drhoet">drhoet</a> 2014</p>
+			</footer>
+		</div> <!-- /container -->
+
+		<div class="modal fade" id="downloadICalModal" tabindex="-1" role="dialog" aria-labelledby="downloadICalModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="downloadICalModalLabel">ICal import instructions</h4>
+					</div>
+					<div class="modal-body">
+						<p>Your iCal is being generated and will be available for downloaded in an instant through the link below.</p>
+						<p>To use the file, you probably want to create a new Calendar and import the file there. In Gmail, this is how you would do that:</p>
+						<ul>
+							<li>First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.<img src="img/Gmail_create_calendar.png"/></li>
+							<li>Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.<img src="img/Gmail_import_calendar.png"/></li>
+							<li>If you wish to have a reminder for the events, you can do so by clicking the little arrow next to your newly created calendar and choosing the Reminders and notifications option.</li>
+						</ul>
+						<div id="downloadWaiting" class="show">
+							<img src="img/ajax-loader.gif"/>
+							<span>Generating iCal...</span>
+						</div>
+						<a id="downloadLink" class="hidden" href="">Download iCal</a>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script data-main="js/main" src="js/vendor/require.js" type="text/javascript"></script>
+	</body>
+</html>

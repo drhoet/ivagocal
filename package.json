@@ -1,0 +1,10 @@
+{
+  "name": "ivagocal",
+  "version": "0.0.1",
+  "description": "Ivago Calendar Creator",
+  "author": "Dries Hoet",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-template-runner": "~0.2.1"
+  }
+}
