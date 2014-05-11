@@ -1,6 +1,24 @@
 {
-	"Ivago Calendar Creator": "Ivago Calendar Creator",
-	"Creates iCal based on Ivago data": "Creates iCal based on Ivago data",
-	"You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.",
-	"This page allows you to create a calendar in iCal format for the garbage collection rounds of Ivago, Ghent. The iCal format is a widely used format, understood by most calendering applications, among other Google Calendar, Mozilla Thunderbird, Microsoft Outlook...": "This page allows you to create a calendar in iCal format for the garbage collection rounds of Ivago, Ghent. The iCal format is a widely used format, understood by most calendering applications, among other Google Calendar, Mozilla Thunderbird, Microsoft Outlook..."
+	"title": "Ivago Calendar Creator",
+	"description": "Creates iCal based on Ivago data",
+	"outdated_browser": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.",
+	"introduction": "This page allows you to create a calendar in iCal format for the garbage collection rounds of Ivago, Ghent. The iCal format is a widely used format, understood by most calendering applications, among other Google Calendar, Mozilla Thunderbird, Microsoft Outlook...",
+	"cal_settings": "Calendar settings",
+	"cal_settings_intro": "Select your address and desired calendar properties. This information is needed to find your zone. Garbage collection calendars depend on the zone in which you live. Under no circumstance will this information be stored or shared with third parties.",
+	"loading_data": "Loading data...",
+	"choose_community": "Choose community...",
+	"choose_street": "Choose street...",
+	"choose_part": "Choose street part...",
+	"sector_label": "You are in sector: ",
+	"create_ical": "Create iCal &raquo;",
+	"disclaimer": "DISCLAIMER: This website is provided as a service to the public. The author of this website is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information contained within the site is periodically updated, no guarantee is given that the information provided in this web site is correct, complete, and up-to-date. Although this site may include links providing direct access to other Internet resources, including web sites, the author is not responsible for the accuracy or content of information contained in these sites. Links from this site to third-party sites do not constitute an endorsement by the author of the parties or their products and services. The appearance on the web site of advertisements and product or service information does not constitute an endorsement by the author, and the author has not investigated the claims made by any advertiser. Product information is based solely on material received from suppliers.",
+	"license": "The data used in this application is under license. Please find more information <a href=\"http://data.gent.be/algemene-licentie\">here</a>. Downloading this data in full or retrieving substantial parts of it through this website requires you to follow the license mentioned before.",
+	"import_instr_title": "ICal import instructions",
+	"import_instr_intro": "Your iCal is being generated and will be available for downloaded in an instant through the link below.",
+	"import_instr_howto": "To use the file, you probably want to create a new Calendar and import the file there. In Gmail, this is how you would do that:",
+	"gcal_create_new": "First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.",
+	"gcal_import": "Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.",
+	"generating_ical": "Generating iCal...",
+	"download_ical": "Download iCal",
+	"close": "Close"
 }

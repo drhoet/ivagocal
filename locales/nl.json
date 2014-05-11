@@ -1,7 +1,24 @@
 {
-	"Ivago Calendar Creator": "Ivago Calendar Creator",
-	"Creates iCal based on Ivago data": "Genereert iCal voor Ivago data",
-	"You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.":
-		"Uw browser is <strong>verouderd</strong>. Bezoek <a gref=\"http://browsehappy.com/\">update uw browser</a> voor een betere gebruikservaring.",
-	"This page allows you to create a calendar in iCal format for the garbage collection rounds of Ivago, Ghent. The iCal format is a widely used format, understood by most calendering applications, among other Google Calendar, Mozilla Thunderbird, Microsoft Outlook...": "Op deze pagina kan u een kalendar in iCal formaat aanmaken voor de ophaalrondes van het huisvuil door Ivago in Gent. Het iCal formaat is een bekend formaat dat ondersteund wordt in de meeste grote kalendar-toepassingen, waaronde Google Kalender, Mozilla Thunderbird, Microsoft Outlook, ..."
+	"title": "Ivago Calendar Creator",
+	"description": "Genereert iCal voor Ivago data",
+	"outdated_browser": "Uw browser is <strong>verouderd</strong>. Bezoek <a gref=\"http://browsehappy.com/\">update uw browser</a> voor een betere gebruikservaring.",
+	"introduction": "Op deze pagina kan u een kalendar in iCal formaat aanmaken voor de ophaalrondes van het huisvuil door Ivago in Gent. Het iCal formaat is een bekend formaat dat ondersteund wordt in de meeste grote kalendar-toepassingen, waaronde Google Kalender, Mozilla Thunderbird, Microsoft Outlook, ...",
+	"cal_settings": "Kalender opties",
+	"cal_settings_intro": "Selecteer uw adres en kalender opties. Uw adresinformatie is nodig om uw zone te bepalen. Huisvuilrondes zijn afhankelijk van uw zone. Uw informatie wordt niet opgeslagen of doorgegeven aan derden.",
+	"loading_data": "Gegevens worden geladen...",
+	"choose_community": "Kies gemeente...",
+	"choose_street": "Kies straat...",
+	"choose_part": "Kies straatdeel...",
+	"sector_label": "U woont in sector: ",
+	"create_ical": "Maak iCal aan &raquo;",
+	"disclaimer": "DISCLAIMER: Deze website wordt u als een dienst aangeboden. De auteur van deze website kan niet verantwoordelijk gesteld worden voor eventuele fouten, onregelmatigheden of andere beschadigende consequenties, voortkomend uit het gebruik, verwijzing naar of afhankelijkheid van eender welke informatie beschikbaar op of verkregen via deze website. Hoewel de informatie op deze site regelmatig wordt vernieuwd, wordt geen enkele garantie gegeven dat de informatie verkregen via deze website correct, compleet of actueel is. Hoewel deze website directe of indirecte links kan bevatten naar andere gegevens op internet, waaronder ook andere website, is de auteur niet verantwoordelijk voor de juistheid van informatie uit deze bronnen. Links van deze website naar websites van derden houden geen enkele goedkeuring of instemming van de auteur in voor hun producten, diensten of informatie. Eventuele reclameboodschappen en product- of serviceinformatie getoond via deze website houden geen enkele goedkeuring of instemming van de auteur in, en de auteur ondersteunt op geen enkele manier de beweringen gedaan in die reclameboodschappen. Productinformatie is enkel gebaseerd op informatie verkregen door de auteurs van deze reclameboodschappen.",
+	"license": "Het gebruik van de data op deze website is onderhevig aan een licensie. Volg <a href=\"http://data.gent.be/algemene-licentie\">deze link</a> voor meer informatie. Downloaden van de hele dataset of een substantieel onderdeel via deze website is enkel toegelaten als aan voorvernoemde licensie is voldaan.",
+	"import_instr_title": "ICal instructies",
+	"import_instr_intro": "Uw iCal wordt gemaakt en kan over een ogenblik gedownload worden via de link hieronder.",
+	"import_instr_howto": "De makkelijkste manier om het bestand te gebruiken, is een nieuwe kalender te maken en het bestand daar op te laden. In Gmail doet u dat zo:",
+	"gcal_create_new": "Maak een nieuwe kalender door op de link 'Create new calendar' te klikken naast de 'My calendars'-titel. Vul de instellingen aan.",
+	"gcal_import": "Klik daarna op het kleine pijltje naast 'Other calendars' en kies 'Import calendar'. Geef het gedownloade bestand aan. Gmail voegt alle ophaalbeurten to aan de kalender.",
+	"generating_ical": "Uw iCal wordt aangemaakt...",
+	"download_ical": "Download iCal",
+	"close": "Sluiten"
 }

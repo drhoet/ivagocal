@@ -44,53 +44,47 @@
 		</div>
 
 		<div class="container">
-			<h3>Calendar settings</h3>
-			<p>Select your address and desired calendar properties. This information is needed to find your zone. Garbage collection calendars depend on the zone in which you live. Under no circumstance will this information be stored or shared with third parties.</p>
+			<h3>Kalender opties</h3>
+			<p>Selecteer uw adres en kalender opties. Uw adresinformatie is nodig om uw zone te bepalen. Huisvuilrondes zijn afhankelijk van uw zone. Uw informatie wordt niet opgeslagen of doorgegeven aan derden.</p>
 			<form method="get" role="form">
 				<div class="form-group">
 					<div data-bind="visible: !dataLoaded()">
 						<img src="img/ajax-loader.gif"/>
-						<span>Loading data ...</span>
+						<span>Gegevens worden geladen...</span>
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<select data-bind="
 						options: allCommunities,
 						optionsText: 'name',
-						optionsCaption: 'Choose community',
+						optionsCaption: 'Kies gemeente...',
 						value: selectedCommunity,
 						enable: dataLoaded" class="form-control"></select>
 					<select data-bind="
 						options: communityStreets,
 						optionsText: 'name',
 						value: selectedStreet,
-						optionsCaption: 'Choose street...',
+						optionsCaption: 'Kies straat...',
 						enable: selectedCommunity" class="form-control"></select> 
 					<select data-bind="
 						options: streetDivisions,
 						optionsText: 'label',
 						value: selectedStreetDivision,
-						optionsCaption: 'Choose street part...',
+						optionsCaption: 'Kies straatdeel...',
 						enable: isStreetDivided
 						visible: isStreetDivided" class="form-control"></select> 
 				</div>
 				<div class="form-group" data-bind="visible: selectedSector()">
-					<p>You are in sector: <span data-bind="text: selectedSector()"> </span></p>
+					<p>U woont in sector: <span data-bind="text: selectedSector()"></span></p>
 				</div>
 				<input data-bind="value: selectedSector()" type="hidden" name="sector"/>
-				<button id="createICalButton" type="button" class="btn btn-default" data-bind="enable: selectedSector()">Create iCal &raquo;</button>
+				<button id="createICalButton" type="button" class="btn btn-default" data-bind="enable: selectedSector()">Maak iCal aan &raquo;</button>
 			</form>
 			<hr>
 
 			<footer>
-				<p><small>DISCLAIMER: This website is provided as a service to the public and Web site owners.
-
-The author of this website is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information contained within the site is periodically updated, no guarantee is given that the information provided in this web site is correct, complete, and up-to-date.
-
-Although this site may include links providing direct access to other Internet resources, including web sites, the author is not responsible for the accuracy or content of information contained in these sites.
-
-Links from this site to third-party sites do not constitute an endorsement by the author of the parties or their products and services. The appearance on the web site of advertisements and product or service information does not constitute an endorsement by the author, and the author has not investigated the claims made by any advertiser. Product information is based solely on material received from suppliers.</small></p>
-				<p><small>The data used in this application is under license. Please find more information <a href="http://data.gent.be/algemene-licentie">here</a>. Downloading this data in full or retrieving substantial parts of it through this website requires you to follow the license mentioned before.</small></p>
+				<p><small>DISCLAIMER: Deze website wordt u als een dienst aangeboden. De auteur van deze website kan niet verantwoordelijk gesteld worden voor eventuele fouten, onregelmatigheden of andere beschadigende consequenties, voortkomend uit het gebruik, verwijzing naar of afhankelijkheid van eender welke informatie beschikbaar op of verkregen via deze website. Hoewel de informatie op deze site regelmatig wordt vernieuwd, wordt geen enkele garantie gegeven dat de informatie verkregen via deze website correct, compleet of actueel is. Hoewel deze website directe of indirecte links kan bevatten naar andere gegevens op internet, waaronder ook andere website, is de auteur niet verantwoordelijk voor de juistheid van informatie uit deze bronnen. Links van deze website naar websites van derden houden geen enkele goedkeuring of instemming van de auteur in voor hun producten, diensten of informatie. Eventuele reclameboodschappen en product- of serviceinformatie getoond via deze website houden geen enkele goedkeuring of instemming van de auteur in, en de auteur ondersteunt op geen enkele manier de beweringen gedaan in die reclameboodschappen. Productinformatie is enkel gebaseerd op informatie verkregen door de auteurs van deze reclameboodschappen.</small></p>
+				<p><small>Het gebruik van de data op deze website is onderhevig aan een licensie. Volg <a href="http://data.gent.be/algemene-licentie">deze link</a> voor meer informatie. Downloaden van de hele dataset of een substantieel onderdeel via deze website is enkel toegelaten als aan voorvernoemde licensie is voldaan.</small></p>
 				<p>&copy; <a href="https://github.com/drhoet">drhoet</a> 2014</p>
 			</footer>
 		</div> <!-- /container -->
@@ -100,24 +94,23 @@ Links from this site to third-party sites do not constitute an endorsement by th
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="downloadICalModalLabel">ICal import instructions</h4>
+						<h4 class="modal-title" id="downloadICalModalLabel">ICal instructies</h4>
 					</div>
 					<div class="modal-body">
-						<p>Your iCal is being generated and will be available for downloaded in an instant through the link below.</p>
-						<p>To use the file, you probably want to create a new Calendar and import the file there. In Gmail, this is how you would do that:</p>
+						<p>Uw iCal wordt gemaakt en kan over een ogenblik gedownload worden via de link hieronder.</p>
+						<p>De makkelijkste manier om het bestand te gebruiken, is een nieuwe kalender te maken en het bestand daar op te laden. In Gmail doet u dat zo:</p>
 						<ul>
-							<li>First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.<img src="img/Gmail_create_calendar.png"/></li>
-							<li>Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.<img src="img/Gmail_import_calendar.png"/></li>
-							<li>If you wish to have a reminder for the events, you can do so by clicking the little arrow next to your newly created calendar and choosing the Reminders and notifications option.</li>
+							<li>Maak een nieuwe kalender door op de link 'Create new calendar' te klikken naast de 'My calendars'-titel. Vul de instellingen aan.<img src="img/Gmail_create_calendar.png"/></li>
+							<li>Klik daarna op het kleine pijltje naast 'Other calendars' en kies 'Import calendar'. Geef het gedownloade bestand aan. Gmail voegt alle ophaalbeurten to aan de kalender.<img src="img/Gmail_import_calendar.png"/></li>
 						</ul>
 						<div id="downloadWaiting" class="show">
 							<img src="img/ajax-loader.gif"/>
-							<span>Generating iCal...</span>
+							<span>Uw iCal wordt aangemaakt...</span>
 						</div>
 						<a id="downloadLink" class="hidden" href="">Download iCal</a>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
 					</div>
 				</div>
 			</div>

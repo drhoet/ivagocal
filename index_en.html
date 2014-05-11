@@ -50,14 +50,14 @@
 				<div class="form-group">
 					<div data-bind="visible: !dataLoaded()">
 						<img src="img/ajax-loader.gif"/>
-						<span>Loading data ...</span>
+						<span>Loading data...</span>
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<select data-bind="
 						options: allCommunities,
 						optionsText: 'name',
-						optionsCaption: 'Choose community',
+						optionsCaption: 'Choose community...',
 						value: selectedCommunity,
 						enable: dataLoaded" class="form-control"></select>
 					<select data-bind="
@@ -75,7 +75,7 @@
 						visible: isStreetDivided" class="form-control"></select> 
 				</div>
 				<div class="form-group" data-bind="visible: selectedSector()">
-					<p>You are in sector: <span data-bind="text: selectedSector()"> </span></p>
+					<p>You are in sector: <span data-bind="text: selectedSector()"></span></p>
 				</div>
 				<input data-bind="value: selectedSector()" type="hidden" name="sector"/>
 				<button id="createICalButton" type="button" class="btn btn-default" data-bind="enable: selectedSector()">Create iCal &raquo;</button>
@@ -83,13 +83,7 @@
 			<hr>
 
 			<footer>
-				<p><small>DISCLAIMER: This website is provided as a service to the public and Web site owners.
-
-The author of this website is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information contained within the site is periodically updated, no guarantee is given that the information provided in this web site is correct, complete, and up-to-date.
-
-Although this site may include links providing direct access to other Internet resources, including web sites, the author is not responsible for the accuracy or content of information contained in these sites.
-
-Links from this site to third-party sites do not constitute an endorsement by the author of the parties or their products and services. The appearance on the web site of advertisements and product or service information does not constitute an endorsement by the author, and the author has not investigated the claims made by any advertiser. Product information is based solely on material received from suppliers.</small></p>
+				<p><small>DISCLAIMER: This website is provided as a service to the public. The author of this website is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information contained within the site is periodically updated, no guarantee is given that the information provided in this web site is correct, complete, and up-to-date. Although this site may include links providing direct access to other Internet resources, including web sites, the author is not responsible for the accuracy or content of information contained in these sites. Links from this site to third-party sites do not constitute an endorsement by the author of the parties or their products and services. The appearance on the web site of advertisements and product or service information does not constitute an endorsement by the author, and the author has not investigated the claims made by any advertiser. Product information is based solely on material received from suppliers.</small></p>
 				<p><small>The data used in this application is under license. Please find more information <a href="http://data.gent.be/algemene-licentie">here</a>. Downloading this data in full or retrieving substantial parts of it through this website requires you to follow the license mentioned before.</small></p>
 				<p>&copy; <a href="https://github.com/drhoet">drhoet</a> 2014</p>
 			</footer>
@@ -108,7 +102,6 @@ Links from this site to third-party sites do not constitute an endorsement by th
 						<ul>
 							<li>First create a new calendar by clicking the Create new calendar link next to the My calendars heading. Name it and set the settings as you wish.<img src="img/Gmail_create_calendar.png"/></li>
 							<li>Then click the little arrow next to the Other calendars link and select Import calendar. Now chose the iCal file you downloaded. Gmail should add all the events to the calendar.<img src="img/Gmail_import_calendar.png"/></li>
-							<li>If you wish to have a reminder for the events, you can do so by clicking the little arrow next to your newly created calendar and choosing the Reminders and notifications option.</li>
 						</ul>
 						<div id="downloadWaiting" class="show">
 							<img src="img/ajax-loader.gif"/>
